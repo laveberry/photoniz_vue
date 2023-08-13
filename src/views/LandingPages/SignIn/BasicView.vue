@@ -1,5 +1,7 @@
 <script setup>
 import { onMounted } from "vue";
+import { callLogin } from "@/api/user";
+
 
 // example components
 import DefaultNavbar from "@/examples/navbars/NavbarDefault.vue";
@@ -15,6 +17,24 @@ import setMaterialInput from "@/assets/js/material-input";
 onMounted(() => {
   setMaterialInput();
 });
+
+</script>
+<script>
+export default {
+  data() {
+    return {
+      loginData : {
+        email : '',
+        password : ''
+      }
+    }
+  },
+  methods: {
+    clickLogin(){
+      callLogin(this.loginData);
+    },
+  },
+}
 </script>
 <template>
   <DefaultNavbar transparent />
@@ -63,18 +83,20 @@ onMounted(() => {
                 </div>
               </div>
               <div class="card-body">
-                <form role="form" class="text-start">
+                <form role="form" class="text-start" @submit.prevent="clickLogin">
                   <MaterialInput
                     id="email"
                     class="input-group-outline my-3"
                     :label="{ text: 'Email', class: 'form-label' }"
                     type="email"
+                    v-model="loginData.email"
                   />
                   <MaterialInput
                     id="password"
                     class="input-group-outline mb-3"
                     :label="{ text: 'Password', class: 'form-label' }"
                     type="password"
+                    v-model="loginData.password"
                   />
                   <MaterialSwitch
                     class="d-flex align-items-center mb-3"
@@ -90,6 +112,7 @@ onMounted(() => {
                       variant="gradient"
                       color="success"
                       fullWidth
+                      type="submit"
                       >Sign in</MaterialButton
                     >
                   </div>

@@ -1,4 +1,5 @@
 <script setup>
+import { defineProps, defineEmits } from 'vue';
 defineProps({
   id: {
     type: String,
@@ -52,6 +53,10 @@ defineProps({
     type: String,
     default: "",
   },
+  modelValue: {
+    type: String,
+    default: ""
+  },
 });
 function getClasses(size, success, error) {
   let sizeValue, isValidValue;
@@ -68,6 +73,13 @@ function getClasses(size, success, error) {
 
   return `${sizeValue} ${isValidValue}`;
 }
+// `emit` 함수 사용 준비
+const emit = defineEmits();
+
+// `modelValue` 업데이트를 위한 함수
+const updateValue = (event) => {
+  emit('update:modelValue', event.target.value);
+};
 </script>
 <template>
   <div class="input-group">
@@ -82,10 +94,11 @@ function getClasses(size, success, error) {
       :type="type"
       class="form-control"
       :class="[getClasses(size, success, error), inputClass]"
-      :value="value"
+      :value="modelValue"
       :placeholder="placeholder"
       :isRequired="isRequired"
       :disabled="isDisabled"
+      @input="updateValue"
     />
   </div>
 </template>

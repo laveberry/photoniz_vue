@@ -21,7 +21,8 @@ export default {
   },
   data(){
     return {
-      data : {}
+      data : {},
+      title : '',
     }
   },
   computed:{
@@ -32,18 +33,15 @@ export default {
   },
   methods: {
     startPhoto(){
+      this.data.photoNm = this.photoId;
       switch(this.photoId){
         case 'wedding':
-          alert("웨딩");
           break;
         case 'body':
-        alert("바디프로필");
           break;
-        case 'personal':
-        alert("개인");
+        case 'personal':  
           break;
         default:
-        alert("전체");
       }
     }
   },
